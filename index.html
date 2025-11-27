@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Tint Manager Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <div id="sidebar"></div>
+  <div id="navbar"></div>
+
+  <main class="main-content">
+    <!-- Welcome Section -->
+    <div class="welcome-section">
+      <h1>Welcome Back, Admin! 👋</h1>
+      <p>Here's what's happening with your business today.</p>
+    </div>
+
+    <!-- Dashboard Stats Grid - Black & Gold -->
+    <div class="dashboard-stats">
+      <!-- Today's Appointments -->
+      <div class="stat-box">
+        <div class="stat-icon today">
+          <i class="bi bi-calendar-check-fill"></i>
+        </div>
+        <div class="stat-details">
+          <h3>8</h3>
+          <p>Today's Appointments</p>
+        </div>
+        <span class="stat-badge">Today</span>
+      </div>
+
+      <!-- Pending Tasks -->
+      <div class="stat-box">
+        <div class="stat-icon pending">
+          <i class="bi bi-clock-history"></i>
+        </div>
+        <div class="stat-details">
+          <h3>5</h3>
+          <p>Pending Tasks</p>
+        </div>
+        <span class="stat-badge">Pending</span>
+      </div>
+
+      <!-- Monthly Revenue -->
+      <div class="stat-box">
+        <div class="stat-icon revenue">
+          <i class="bi bi-cash-coin"></i>
+        </div>
+        <div class="stat-details">
+          <h3>RM 45,680</h3>
+          <p>Monthly Revenue</p>
+        </div>
+        <span class="stat-badge">↑ 12%</span>
+      </div>
+
+      <!-- Active Staff -->
+      <div class="stat-box">
+        <div class="stat-icon staff">
+          <i class="bi bi-people-fill"></i>
+        </div>
+        <div class="stat-details">
+          <h3>6</h3>
+          <p>Active Staff</p>
+        </div>
+        <span class="stat-badge">Active</span>
+      </div>
+    </div>
+
+    <!-- Content Grid - Black & Gold -->
+    <div class="content-grid">
+      <!-- Upcoming Appointments Section -->
+      <div class="section-card">
+        <div class="section-header">
+          <h3>
+            <i class="bi bi-calendar3"></i> Upcoming Appointments
+          </h3>
+          <a href="appointments.html" class="view-all-link">
+            View All <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="section-body">
+          <!-- Appointment Item 1 -->
+          <div class="appointment-item">
+            <div class="appointment-info">
+              <h4>Ahmad Ibrahim</h4>
+              <p>
+                <i class="bi bi-car-front"></i> Perodua Myvi • WXY 1234
+              </p>
+              <p>
+                <i class="bi bi-clock"></i> 10:00 AM
+              </p>
+            </div>
+            <div class="appointment-status">
+              <span class="status-badge confirmed">CONFIRMED</span>
+            </div>
+          </div>
+
+          <!-- Appointment Item 2 -->
+          <div class="appointment-item">
+            <div class="appointment-info">
+              <h4>Sarah Lim</h4>
+              <p>
+                <i class="bi bi-car-front"></i> Honda Civic • ABC 5678
+              </p>
+              <p>
+                <i class="bi bi-clock"></i> 2:00 PM
+              </p>
+            </div>
+            <div class="appointment-status">
+              <span class="status-badge pending">PENDING</span>
+            </div>
+          </div>
+
+          <!-- Appointment Item 3 -->
+          <div class="appointment-item">
+            <div class="appointment-info">
+              <h4>Kumar Raj</h4>
+              <p>
+                <i class="bi bi-car-front"></i> Toyota Vios • DEF 9012
+              </p>
+              <p>
+                <i class="bi bi-clock"></i> 4:30 PM
+              </p>
+            </div>
+            <div class="appointment-status">
+              <span class="status-badge confirmed">CONFIRMED</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activities Section -->
+      <div class="section-card">
+        <div class="section-header">
+          <h3>
+            <i class="bi bi-activity"></i> Recent Activities
+          </h3>
+        </div>
+
+        <div class="section-body">
+          <!-- Activity Item 1 -->
+          <div class="activity-item">
+            <div class="activity-icon appointment">
+              <i class="bi bi-calendar-check"></i>
+            </div>
+            <div class="activity-details">
+              <h5><strong>Ahmad Ibrahim</strong> booked an appointment</h5>
+              <p>Perodua Myvi • Premium Tint Package</p>
+            </div>
+            <span class="activity-time">10 min ago</span>
+          </div>
+
+          <!-- Activity Item 2 -->
+          <div class="activity-item">
+            <div class="activity-icon complete">
+              <i class="bi bi-check-circle"></i>
+            </div>
+            <div class="activity-details">
+              <h5><strong>John Lim</strong> completed tinting</h5>
+              <p>WXY 1234 • Service completed successfully</p>
+            </div>
+            <span class="activity-time">25 min ago</span>
+          </div>
+
+          <!-- Activity Item 3 -->
+          <div class="activity-item">
+            <div class="activity-icon payment">
+              <i class="bi bi-cash-coin"></i>
+            </div>
+            <div class="activity-details">
+              <h5>Payment received: <strong>RM 1,280</strong></h5>
+              <p>Kumar Raj • Cash payment</p>
+            </div>
+            <span class="activity-time">1 hour ago</span>
+          </div>
+
+          <!-- Activity Item 4 -->
+          <div class="activity-item">
+            <div class="activity-icon complete">
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="activity-details">
+              <h5><strong>Sarah Tan</strong> left a 5-star review</h5>
+              <p>"Excellent service and quality work!"</p>
+            </div>
+            <span class="activity-time">2 hours ago</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions - Black & Gold -->
+    <div class="section-card">
+      <div class="section-header">
+        <h3>
+          <i class="bi bi-lightning-charge-fill"></i> Quick Actions
+        </h3>
+      </div>
+      <div class="section-body">
+        <div class="quick-actions">
+          <a href="appointments.html" class="action-card">
+            <i class="bi bi-calendar-plus"></i>
+            <span>New Booking</span>
+          </a>
+          <a href="staff.html" class="action-card">
+            <i class="bi bi-person-plus"></i>
+            <span>Assign Task</span>
+          </a>
+          <a href="sales.html" class="action-card">
+            <i class="bi bi-receipt"></i>
+            <span>Record Sale</span>
+          </a>
+          <a href="products.html" class="action-card">
+            <i class="bi bi-box-seam"></i>
+            <span>Manage Stock</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

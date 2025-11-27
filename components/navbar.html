@@ -1,0 +1,124 @@
+<nav class="top-navbar">
+  <div class="navbar-left">
+    <div class="navbar-title">
+      <i class="bi bi-grid-3x3-gap-fill"></i>
+      <h1>Royal Tint Manager</h1>
+    </div>
+  </div>
+  
+  <div class="navbar-right">
+    <!-- Notification Bell -->
+    <div class="nav-icon" id="notificationIcon" title="Notifications">
+      <i class="bi bi-bell-fill"></i>
+      <span class="notification-badge">3</span>
+    </div>
+    
+    <!-- New Appointment Button -->
+    <a href="appointments.html?action=new" class="nav-icon new-appointment-btn" id="newAppointmentBtn" title="New Appointment">
+      <i class="bi bi-calendar-plus"></i>
+    </a>
+    
+    <!-- User Profile with Dropdown -->
+    <div class="user-profile-wrapper">
+      <div class="user-profile" id="profileMenu">
+        <div class="user-avatar">A</div>
+        <span class="user-name">Admin</span>
+        <i class="bi bi-chevron-down dropdown-arrow"></i>
+      </div>
+      
+      <!-- Dropdown Menu -->
+      <div class="profile-dropdown" id="profileDropdown">
+        <a href="profile.html" class="dropdown-item">
+          <i class="bi bi-person-circle"></i>
+          <span>My Profile</span>
+        </a>
+        <a href="settings.html" class="dropdown-item">
+          <i class="bi bi-gear-fill"></i>
+          <span>Settings</span>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="javascript:void(0)" class="dropdown-item logout-item" onclick="handleLogout(event)">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+(function() {
+  console.log('Navbar script loaded');
+  
+  // Notification click
+  const notificationIcon = document.getElementById('notificationIcon');
+  if (notificationIcon) {
+    notificationIcon.addEventListener('click', function(e) {
+      e.stopPropagation();
+      alert('You have 3 notifications');
+    });
+    console.log('Notification icon handler attached');
+  }
+  
+  // Profile dropdown toggle - WORKING VERSION
+  const profileMenu = document.getElementById('profileMenu');
+  const profileDropdown = document.getElementById('profileDropdown');
+  
+  if (profileMenu && profileDropdown) {
+    console.log('Profile elements found');
+    
+    profileMenu.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      console.log('Profile menu clicked!'); // Debug
+      
+      const isShowing = profileDropdown.classList.contains('show');
+      const arrow = this.querySelector('.dropdown-arrow');
+      
+      if (isShowing) {
+        profileDropdown.classList.remove('show');
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+        console.log('Dropdown closed');
+      } else {
+        profileDropdown.classList.add('show');
+        if (arrow) arrow.style.transform = 'rotate(180deg)';
+        console.log('Dropdown opened');
+      }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      const wrapper = document.querySelector('.user-profile-wrapper');
+      if (wrapper && !wrapper.contains(e.target)) {
+        profileDropdown.classList.remove('show');
+        const arrow = profileMenu.querySelector('.dropdown-arrow');
+        if (arrow) {
+          arrow.style.transform = 'rotate(0deg)';
+        }
+      }
+    });
+    
+    console.log('Profile dropdown handler attached');
+  } else {
+    console.error('Profile menu or dropdown not found!');
+  }
+  
+  // Prevent dropdown from closing when clicking inside it
+  if (profileDropdown) {
+    profileDropdown.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  }
+})();
+
+// Logout function (globally accessible)
+function handleLogout(event) {
+  event.preventDefault();
+  if (confirm('Are you sure you want to logout?')) {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = 'login.html';
+  }
+}
+</script>
