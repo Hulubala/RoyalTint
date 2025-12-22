@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - Royal Tint</title>
+
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/profile.css">
+</head>
+<body>
+  <div id="navbar"></div>
+  <div id="sidebar"></div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content-wrapper">
+      
+      <!-- Page Header -->
+      <div class="profile-header">
+        <div class="header-content">
+          <i class="bi bi-person-circle"></i>
+          <div class="header-text">
+            <h1>My Profile</h1>
+            <p>Manage your account, security settings, and shop information</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Container -->
+      <div class="profile-container">
+
+        <!-- ========================================
+             SECTION 1: ACCOUNT SETTINGS
+        ========================================= -->
+        <div class="profile-card">
+          <div class="card-header" onclick="toggleSection('accountSection')">
+            <div class="header-left">
+              <i class="bi bi-person-circle"></i>
+              <div>
+                <h3>Account Settings</h3>
+                <p>Update your personal information and profile photo</p>
+              </div>
+            </div>
+            <button type="button" class="toggle-btn">
+              <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
+
+          <div class="card-body" id="accountSection">
+            <form id="accountForm" onsubmit="handleAccountSave(event)">
+              
+              <!-- Profile Photo Upload -->
+              <div class="form-group profile-photo-section">
+                <label class="form-label">
+                  <i class="bi bi-image"></i> Profile Photo
+                </label>
+                <div class="photo-upload-container">
+                  <div class="photo-preview" id="photoPreview">
+                    <img id="profileImage" src="assets/images/default-avatar.png" alt="Profile Photo" onerror="this.src='https://via.placeholder.com/150/FFD700/000000?text=Photo'">
+                    <div class="photo-overlay">
+                      <i class="bi bi-camera"></i>
+                      <span>Change Photo</span>
+                    </div>
+                  </div>
+                  <input type="file" id="photoUpload" accept="image/*" onchange="handlePhotoUpload(event)" style="display: none;">
+                  <div class="photo-actions">
+                    <button type="button" class="btn btn-outline" onclick="document.getElementById('photoUpload').click()">
+                      <i class="bi bi-upload"></i> Choose Photo
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" onclick="removePhoto()">
+                      <i class="bi bi-trash"></i> Remove
+                    </button>
+                  </div>
+                  <p class="form-hint">Recommended: 300x300px, JPG or PNG, max 2MB</p>
+                </div>
+              </div>
+
+              <!-- Name -->
+              <div class="form-group">
+                <label class="form-label" for="accountName">
+                  <i class="bi bi-person"></i> Full Name
+                </label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="accountName" 
+                  placeholder="Enter your full name"
+                  required
+                >
+              </div>
+
+              <!-- Email -->
+              <div class="form-group">
+                <label class="form-label" for="accountEmail">
+                  <i class="bi bi-envelope"></i> Email Address
+                </label>
+                <input 
+                  type="email" 
+                  class="form-control" 
+                  id="accountEmail" 
+                  placeholder="your.email@example.com"
+                  required
+                >
+              </div>
+
+              <!-- Mobile Phone -->
+              <div class="form-group">
+                <label class="form-label" for="accountPhone">
+                  <i class="bi bi-phone"></i> Mobile Phone
+                </label>
+                <input 
+                  type="tel" 
+                  class="form-control" 
+                  id="accountPhone" 
+                  placeholder="+60 12-345 6789"
+                  required
+                >
+              </div>
+
+              <!-- Form Actions -->
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle"></i> Save Changes
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- ========================================
+             SECTION 2: SECURITY SETTINGS
+        ========================================= -->
+        <div class="profile-card">
+          <div class="card-header" onclick="toggleSection('securitySection')">
+            <div class="header-left">
+              <i class="bi bi-shield-lock"></i>
+              <div>
+                <h3>Security Settings</h3>
+                <p>Change your password and secure your account</p>
+              </div>
+            </div>
+            <button type="button" class="toggle-btn">
+              <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
+
+          <div class="card-body" id="securitySection">
+            <form id="securityForm" onsubmit="handleSecuritySave(event)">
+              
+              <!-- Old Password -->
+              <div class="form-group">
+                <label class="form-label" for="oldPassword">
+                  <i class="bi bi-lock"></i> Current Password
+                </label>
+                <div class="password-input-group">
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    id="oldPassword" 
+                    placeholder="Enter your current password"
+                    required
+                  >
+                  <button type="button" class="password-toggle" onclick="togglePassword('oldPassword')">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- New Password -->
+              <div class="form-group">
+                <label class="form-label" for="newPassword">
+                  <i class="bi bi-key"></i> New Password
+                </label>
+                <div class="password-input-group">
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    id="newPassword" 
+                    placeholder="Enter new password"
+                    oninput="checkPasswordStrength(this.value); checkPasswordRequirements(this.value);"
+                    required
+                  >
+                  <button type="button" class="password-toggle" onclick="togglePassword('newPassword')">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+                
+                <!-- Password Strength Meter -->
+                <div class="password-strength-meter" id="strengthMeter">
+                  <div class="strength-bar" id="strengthBar"></div>
+                </div>
+                
+                <!-- Password Requirements -->
+                <div class="password-requirements">
+                  <p class="requirements-title">Password must contain:</p>
+                  <ul>
+                    <li id="req-length">
+                      <i class="bi bi-x-circle"></i>
+                      <span>At least 8 characters</span>
+                    </li>
+                    <li id="req-uppercase">
+                      <i class="bi bi-x-circle"></i>
+                      <span>One uppercase letter (A-Z)</span>
+                    </li>
+                    <li id="req-lowercase">
+                      <i class="bi bi-x-circle"></i>
+                      <span>One lowercase letter (a-z)</span>
+                    </li>
+                    <li id="req-number">
+                      <i class="bi bi-x-circle"></i>
+                      <span>One number (0-9)</span>
+                    </li>
+                    <li id="req-special">
+                      <i class="bi bi-x-circle"></i>
+                      <span>One special character (!@#$%^&*)</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Confirm New Password -->
+              <div class="form-group">
+                <label class="form-label" for="confirmPassword">
+                  <i class="bi bi-check-circle"></i> Re-enter New Password
+                </label>
+                <div class="password-input-group">
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    id="confirmPassword" 
+                    placeholder="Re-enter new password"
+                    oninput="checkPasswordMatch()"
+                    required
+                  >
+                  <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+                
+                <!-- Password Match Indicator -->
+                <div class="password-match-indicator" id="matchIndicator">
+                  <i class="bi bi-check-circle"></i>
+                  <span>Passwords match</span>
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle"></i> Save Password
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- ========================================
+             SECTION 3: SHOP INFO
+        ========================================= -->
+        <div class="profile-card">
+          <div class="card-header" onclick="toggleSection('shopInfoSection')">
+            <div class="header-left">
+              <i class="bi bi-shop"></i>
+              <div>
+                <h3>Shop Information</h3>
+                <p id="shopSubtitle">Manage shop details and settings</p>
+              </div>
+            </div>
+            <button type="button" class="toggle-btn">
+              <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
+
+          <div class="card-body" id="shopInfoSection">
+            
+            <!-- Shop Display Info -->
+            <div class="shop-display-info">
+              <div class="shop-logo-display">
+                <img id="shopLogo" src="assets/images/logo.png" alt="Shop Logo" onerror="this.src='https://via.placeholder.com/120/FFD700/000000?text=LOGO'">
+              </div>
+              <div class="shop-details-display">
+                <h3 id="displayShopName">Royal Tint</h3>
+                <p><i class="bi bi-telephone"></i> <span id="displayShopPhone">+60 12-345 6789</span></p>
+                <p><i class="bi bi-geo-alt"></i> <span id="displayShopAddress">No. 649, Jalan Melaka Raya 8, Taman Melaka Raya, 75000 Melaka</span></p>
+              </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Edit Shop Info Form -->
+            <form id="shopInfoForm" onsubmit="handleShopInfoSave(event)">
+
+              <!-- Operation Hours -->
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="bi bi-clock"></i> Operation Hours
+                </label>
+                
+                <!-- Days Open Selection -->
+                <div class="operation-days">
+                  <p class="form-hint">Select days when the shop is <strong>CLOSED</strong>:</p>
+                  <div class="days-checkboxes">
+                    <label class="day-checkbox">
+                      <input type="checkbox" name="closedDay" value="monday" onchange="updateOperationHours()">
+                      <span>Monday</span>
+                    </label>
+                    <label class="day-checkbox">
+                      <input type="checkbox" name="closedDay" value="tuesday" onchange="updateOperationHours()">
+                      <span>Tuesday</span>
+                    </label>
+                    <label class="day-checkbox">
+                      <input type="checkbox" name="closedDay" value="wednesday" onchange="updateOperationHours()">
+                      <span>Wednesday</span>
+                    </label>
+                    <label class="day-checkbox">
+                      <input type="checkbox" name="closedDay" value="thursday" onchange="updateOperationHours()">
+                      <span>Thursday</span>
+                    </label>
+                    <label class="day-checkbox">
+                      <input type="checkbox" name="closedDay" value="friday" onchange="updateOperationHours()">
+                      <span>Friday</span>
+                    </label>
+                    <label class="day-checkbox">
+                      <input type="checkbox" name="closedDay" value="saturday" onchange="updateOperationHours()">
+                      <span>Saturday</span>
+                    </label>
+                    <label class="day-checkbox">
+                      <input type="checkbox" name="closedDay" value="sunday" onchange="updateOperationHours()">
+                      <span>Sunday</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Time Selection -->
+                <div class="operation-time">
+                  <div class="time-row">
+                    <div class="time-input-group">
+                      <label for="openingTime">Opening Time:</label>
+                      <input 
+                        type="time" 
+                        class="form-control" 
+                        id="openingTime" 
+                        value="09:00"
+                        onchange="updateOperationHours()"
+                        required
+                      >
+                    </div>
+                    <span class="time-separator">to</span>
+                    <div class="time-input-group">
+                      <label for="closingTime">Closing Time:</label>
+                      <input 
+                        type="time" 
+                        class="form-control" 
+                        id="closingTime" 
+                        value="19:00"
+                        onchange="updateOperationHours()"
+                        required
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Operation Hours Preview -->
+                <div class="operation-preview">
+                  <p class="preview-title">
+                    <i class="bi bi-eye"></i> Operation Hours Preview:
+                  </p>
+                  <div class="preview-content" id="operationPreview">
+                    <p>Monday - Saturday: 9:00 AM - 7:00 PM</p>
+                    <p>Closed: ? </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle"></i> Save Shop Info
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/profile.js"></script>
+</body>
+</html>

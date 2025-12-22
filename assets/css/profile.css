@@ -1,0 +1,829 @@
+/* ============================================
+   ROYAL TINT - PROFILE PAGE STYLES
+
+ MAIN CONTENT & FOOTER POSITIONING
+   (Compatible with style.css footer)
+   ======================================== */
+   .main-content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .content-wrapper {
+    flex: 1;
+    padding: 2rem;
+  }
+  
+/* ========================================
+   PAGE HEADER WITHOUT BRANCH SELECTOR
+   ======================================== */
+   .profile-header {
+    background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+    border: 3px solid #FFD700;
+    border-radius: 14px;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+  }
+  
+  .header-content > i {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: #FFD700;
+  }
+  
+  .header-text h1 {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: #FFD700;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+  
+  .header-text p {
+    color: #e0e0e0;
+    margin: 0.5rem 0 0 0;
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+  }
+  
+  /* ========================================
+     PROFILE CONTAINER
+     ======================================== */
+  .profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  /* ========================================
+     PROFILE CARD (COLLAPSIBLE SECTIONS)
+     ======================================== */
+  .profile-card {
+    background: linear-gradient(135deg, #000 0%, #0a0a0a 100%);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .profile-card:hover {
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.1);
+  }
+  
+  /* Card Header (Clickable) */
+  .card-header {
+    padding: 1.5rem 2rem;
+    background: rgba(255, 215, 0, 0.05);
+    border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  
+  .card-header:hover {
+    background: rgba(255, 215, 0, 0.08);
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+  }
+  
+  .header-left > i {
+    font-size: 2.5rem;
+    color: #FFD700;
+    min-width: 50px;
+  }
+  
+  .card-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FFD700;
+    margin: 0;
+  }
+  
+  .card-header p {
+    color: #e0e0e0;
+    margin: 0.5rem 0 0 0;
+    font-size: 0.9rem;
+  }
+  
+  /* Toggle Button */
+  .toggle-btn {
+    background: #FFD700;
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+  
+  .toggle-btn:hover {
+    background: #FFC700;
+    transform: scale(1.1);
+  }
+  
+  .toggle-btn i {
+    transition: transform 0.3s ease;
+  }
+  
+  .card-header.active .toggle-btn i {
+    transform: rotate(180deg);
+  }
+  
+  /* Card Body (Collapsible Content) */
+  .card-body {
+    padding: 2rem;
+    background: #000;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.3s ease;
+  }
+  
+  .card-body.show {
+    max-height: 2500px;
+    transition: max-height 0.5s ease-in, padding 0.3s ease;
+  }
+  
+  /* ========================================
+     FORM GROUPS & INPUTS
+     ======================================== */
+  .form-group {
+    margin-bottom: 1.8rem;
+  }
+  
+  .form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #FFD700;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+  }
+  
+  .form-label i {
+    font-size: 1.1rem;
+  }
+  
+  .form-control {
+    background: #000;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    color: #e0e0e0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.1);
+    background: #0a0a0a;
+  }
+  
+  .form-control::placeholder {
+    color: rgba(224, 224, 224, 0.4);
+  }
+  
+  textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .form-hint {
+    color: rgba(255, 215, 0, 0.6);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: block;
+  }
+  
+  /* ========================================
+     GOLD CALENDAR AND TIME ICONS
+     ======================================== */
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(80%) sepia(100%) saturate(500%) hue-rotate(5deg) brightness(105%);
+    cursor: pointer;
+  }
+   
+  /* ========================================
+     PROFILE PHOTO UPLOAD
+     ======================================== */
+  .profile-photo-section {
+    margin-bottom: 2.5rem;
+  }
+  
+  .photo-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .photo-preview {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #FFD700;
+    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .photo-preview:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 24px rgba(255, 215, 0, 0.5);
+  }
+  
+  .photo-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #FFD700;
+  }
+  
+  .photo-preview:hover .photo-overlay {
+    opacity: 1;
+  }
+  
+  .photo-overlay i {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .photo-overlay span {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  .photo-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  /* ========================================
+     PASSWORD INPUT GROUP
+     ======================================== */
+  .password-input-group {
+    position: relative;
+  }
+  
+  .password-input-group .form-control {
+    padding-right: 3.5rem;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #FFD700;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.2s ease;
+  }
+  
+  .password-toggle:hover {
+    color: #FFC700;
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  /* ========================================
+     PASSWORD STRENGTH METER
+     ======================================== */
+  .password-strength-meter {
+    height: 6px;
+    background: rgba(255, 215, 0, 0.2);
+    border-radius: 10px;
+    margin-top: 0.8rem;
+    overflow: hidden;
+    display: none;
+  }
+  
+  .password-strength-meter.show {
+    display: block;
+  }
+  
+  .strength-bar {
+    height: 100%;
+    transition: width 0.3s ease, background 0.3s ease;
+    width: 0%;
+  }
+  
+  .strength-bar.weak {
+    width: 33%;
+    background: linear-gradient(90deg, #ff4444, #ff6666);
+  }
+  
+  .strength-bar.medium {
+    width: 66%;
+    background: linear-gradient(90deg, #ffaa00, #ffcc00);
+  }
+  
+  .strength-bar.strong {
+    width: 100%;
+    background: linear-gradient(90deg, #4caf50, #66bb6a);
+  }
+  
+  /* ========================================
+     PASSWORD REQUIREMENTS
+     ======================================== */
+  .password-requirements {
+    background: rgba(255, 215, 0, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .requirements-title {
+    color: #FFD700;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .password-requirements ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .password-requirements li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.4rem 0;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+  
+  .password-requirements li i {
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+  }
+  
+  .password-requirements li.met {
+    color: #4caf50;
+  }
+  
+  .password-requirements li.met i {
+    color: #4caf50;
+  }
+  
+  /* ========================================
+     PASSWORD MATCH INDICATOR
+     ======================================== */
+  .password-match-indicator {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  .password-match-indicator.show {
+    display: flex;
+  }
+  
+  .password-match-indicator.match {
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    color: #4caf50;
+  }
+  
+  .password-match-indicator.no-match {
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    color: #f44336;
+  }
+  
+  .password-match-indicator i {
+    font-size: 1.2rem;
+  }
+  
+  /* ========================================
+     SHOP DISPLAY INFO
+     ======================================== */
+  .shop-display-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(255, 215, 0, 0.02));
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    margin-bottom: 2rem;
+  }
+  
+  .shop-logo-display {
+    flex-shrink: 0;
+  }
+  
+  .shop-logo-display img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 3px solid #FFD700;
+    padding: 10px;
+    background: #000;
+  }
+  
+  .shop-details-display h3 {
+    color: #FFD700;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .shop-details-display p {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #e0e0e0;
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+  }
+  
+  .shop-details-display p i {
+    color: #FFD700;
+    font-size: 1.2rem;
+    width: 24px;
+  }
+  
+  .section-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+    margin: 2rem 0;
+  }
+  
+  /* ========================================
+     OPERATION HOURS
+     ======================================== */
+  .operation-days {
+    margin-bottom: 1.5rem;
+  }
+  
+  .days-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .day-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.2rem;
+    background: rgba(255, 215, 0, 0.05);
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+  }
+  
+  .day-checkbox:hover {
+    background: rgba(255, 215, 0, 0.08);
+    border-color: rgba(255, 215, 0, 0.4);
+  }
+  
+  .day-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #FFD700;
+  }
+  
+  .day-checkbox span {
+    color: #e0e0e0;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  
+  .day-checkbox input:checked ~ span {
+    color: #FFD700;
+    font-weight: 600;
+  }
+  
+  .day-checkbox input:checked {
+    transform: scale(1.1);
+  }
+  
+  /* Operation Time */
+  .operation-time {
+    margin-bottom: 1.5rem;
+  }
+  
+  .time-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .time-input-group {
+    flex: 1;
+    min-width: 180px;
+  }
+  
+  .time-input-group label {
+    display: block;
+    color: #FFD700;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .time-input-group .form-control {
+    cursor: pointer;
+  }
+  
+  .time-separator {
+    color: #FFD700;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 1.8rem;
+  }
+  
+  /* Operation Preview */
+  .operation-preview {
+    background: rgba(255, 215, 0, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .preview-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #FFD700;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .preview-title i {
+    font-size: 1.2rem;
+  }
+  
+  .preview-content p {
+    color: #e0e0e0;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  /* ========================================
+     FORM ACTIONS (BUTTONS)
+     ======================================== */
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 215, 0, 0.15);
+    flex-wrap: wrap;
+  }
+  
+  .btn {
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .btn i {
+    font-size: 1.1rem;
+  }
+  
+  .btn-primary {
+    background: #FFD700;
+    color: #000;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  }
+  
+  .btn-primary:hover {
+    background: #FFC700;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+  }
+  
+  .btn-secondary {
+    background: transparent;
+    color: #FFD700;
+    border: 2px solid #FFD700;
+  }
+  
+  .btn-secondary:hover {
+    background: rgba(255, 215, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .btn-outline {
+    background: transparent;
+    color: #FFD700;
+    border: 2px solid rgba(255, 215, 0, 0.5);
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .btn-outline:hover {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: #FFD700;
+  }
+  
+  .btn-outline-danger {
+    background: transparent;
+    color: #f44336;
+    border: 2px solid rgba(244, 67, 54, 0.5);
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .btn-outline-danger:hover {
+    background: rgba(244, 67, 54, 0.1);
+    border-color: #f44336;
+  }
+  
+  /* ========================================
+     RESPONSIVE DESIGN
+     ======================================== */
+  @media (max-width: 768px) {
+    .profile-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .branch-selector {
+      width: 100%;
+      justify-content: space-between;
+    }
+  
+    .branch-selector .form-select {
+      flex: 1;
+    }
+  
+    .shop-display-info {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .header-left {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .header-left > i {
+      font-size: 2rem;
+    }
+  
+    .photo-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .photo-actions .btn {
+      width: 100%;
+    }
+  
+    .time-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .time-separator {
+      margin: 0;
+      text-align: center;
+    }
+  
+    .form-actions {
+      flex-direction: column;
+    }
+  
+    .form-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    .days-checkboxes {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .card-body {
+      padding: 1.5rem;
+    }
+  
+    .profile-header {
+      padding: 1.5rem;
+    }
+  
+    .days-checkboxes {
+      grid-template-columns: 1fr;
+    }
+  
+    .shop-logo-display img {
+      width: 100px;
+      height: 100px;
+    }
+  
+    .shop-details-display h3 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  /* ========================================
+     ANIMATIONS
+     ======================================== */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .profile-card {
+    animation: fadeIn 0.4s ease-out;
+  }
+  
+  .profile-card:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  
+  .profile-card:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  
+  .profile-card:nth-child(3) {
+    animation-delay: 0.3s;
+  }

@@ -37,45 +37,55 @@ async function loadComponents() {
 }
 
 // ===== SIDEBAR FUNCTIONALITY =====
-(function () {
-  // Active page highlighting
-  const currentPath = window.location.pathname;
-  const currentPage =
-    currentPath.substring(currentPath.lastIndexOf("/") + 1).replace(".html", "") ||
-    "index";
-
-  document.querySelectorAll(".menu-item").forEach((item) => {
-    item.classList.remove("active");
-  });
-
-  document.querySelectorAll(".menu-item[data-page]").forEach((item) => {
-    if (item.getAttribute("data-page") === currentPage) {
-      item.classList.add("active");
-    }
-  });
-
-  // Submenu toggle - SIMPLE VERSION
-  const productMenu = document.getElementById("productManagementMenu");
-
-  if (productMenu) {
-    const menuLink = productMenu.querySelector(".menu-link");
-
-    menuLink.addEventListener("click", function (e) {
-      e.preventDefault();
-      productMenu.classList.toggle("open");
-    });
-  }
-})();
-
 function initializeSidebar() {
   // Wait for sidebar to load
   setTimeout(() => {
+    console.log('🟢 Initializing sidebar...');
+    
     const sidebar = document.querySelector(".sidebar");
     const toggleBtn = document.getElementById("sidebar-toggle");
-    const submenuTriggers = document.querySelectorAll(
-      ".has-submenu > a, .has-submenu > .menu-link"
-    );
+    
+    // ===== ACTIVE PAGE HIGHLIGHTING - MOVED HERE =====
+    const currentPath = window.location.pathname;
+    const currentFile = currentPath.split('/').pop() || 'index.html';
+    const currentPage = currentFile.replace('.html', '');
+    
+    // Remove all active classes first
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.classList.remove('active');
+    });
+    
+    let found = false;
+    
+    // Highlight main menu items
+    document.querySelectorAll('.menu-item[data-page]').forEach(item => {
+      if (item.getAttribute('data-page') === currentPage) {
+        item.classList.add('active');
+        found = true;
 
+        if (item.classList.contains('has-submenu')) {
+          item.classList.add('open');
+        }
+      }
+    });
+
+    // Highlight submenu items
+    document.querySelectorAll('.submenu li[data-page]').forEach(item => {
+      if (item.getAttribute('data-page') === currentPage) {
+        item.classList.add('active');
+
+        const parent = item.closest('.has-submenu');
+        if (parent) parent.classList.add('open');
+
+        found = true;
+      }
+    });
+    
+    if (!found) {
+      console.log('⚠️ No matching menu item found for:', currentPage);
+    }
+    // ===== END ACTIVE PAGE HIGHLIGHTING =====
+    
     // Toggle sidebar collapse
     if (toggleBtn && sidebar) {
       toggleBtn.addEventListener("click", (e) => {
@@ -92,6 +102,10 @@ function initializeSidebar() {
     }
 
     // Handle submenu toggles
+    const submenuTriggers = document.querySelectorAll(
+      ".has-submenu > a, .has-submenu > .menu-link"
+    );
+    
     submenuTriggers.forEach((trigger) => {
       trigger.addEventListener("click", (e) => {
         e.preventDefault();
@@ -108,21 +122,109 @@ function initializeSidebar() {
         parent.classList.toggle("open");
       });
     });
+    
+    console.log('✅ Sidebar initialized');
   }, 100);
 }
 
 // ===== NAVBAR FUNCTIONALITY =====
 function initializeNavbar() {
-  // Profile dropdown (can be extended)
   setTimeout(() => {
+    console.log('🟢 Initializing navbar...');
+    
+    // Profile dropdown toggle
     const profileMenu = document.getElementById("profileMenu");
-    if (profileMenu) {
+    const profileDropdown = document.getElementById("profileDropdown");
+    const notificationIcon = document.getElementById("notificationIcon");
+    const notificationDropdown = document.getElementById("notificationDropdown");
+    
+    if (profileMenu && profileDropdown) {
       profileMenu.addEventListener("click", (e) => {
+        e.preventDefault();
         e.stopPropagation();
-        // Add dropdown functionality here if needed
-        console.log("Profile clicked");
+        
+        if (notificationDropdown) notificationDropdown.classList.remove("show");
+
+        const isShowing = profileDropdown.classList.contains('show');
+        const arrow = profileMenu.querySelector('.dropdown-arrow');
+        
+        profileDropdown.classList.toggle("show", !isShowing);
+        if (arrow) arrow.style.transform = isShowing ? "rotate(0deg)" : "rotate(180deg)";
       });
     }
+        
+    // === NOTIFICATION DROPDOWN ===
+    if (notificationIcon && notificationDropdown) {
+      notificationIcon.addEventListener("click", function (e) {
+        e.stopPropagation();
+
+        if (profileDropdown) {
+          profileDropdown.classList.remove("show");
+          const arrow = profileMenu.querySelector(".dropdown-arrow");
+          if (arrow) arrow.style.transform = "rotate(0deg)";
+        }
+
+        notificationDropdown.classList.toggle("show");
+      });
+    }
+
+    // === CLICK NOTIFICATION ITEM ===
+    document.querySelectorAll(".notification-item").forEach(item => {
+      item.addEventListener("click", function (e) {
+        e.stopPropagation();
+
+        this.classList.remove("unread");
+        updateNotificationCount();
+
+        const id = this.getAttribute("data-appointment");
+        if (id) window.location.href = `appointments.html?id=${id}`;
+      });
+    });
+
+    // === MARK ALL READ ===
+    const markAllRead = document.getElementById("markAllRead");
+    if (markAllRead) {
+      markAllRead.addEventListener("click", function (e) {
+        e.stopPropagation();
+        document.querySelectorAll(".notification-item.unread")
+          .forEach(item => item.classList.remove("unread"));
+
+        updateNotificationCount();
+      });
+    }
+
+    // === UPDATE BADGE ===
+    function updateNotificationCount() {
+      const unread = document.querySelectorAll(".notification-item.unread").length;
+      const badge = document.getElementById("notificationCount");
+
+      if (!badge) return;
+
+      if (unread > 0) {
+        badge.textContent = unread;
+        badge.style.display = "flex";
+      } else {
+        badge.style.display = "none";
+      }
+    }
+
+    // === CLICK OUTSIDE TO CLOSE ===
+    document.addEventListener("click", function (e) {
+      const profileWrap = document.querySelector(".user-profile-wrapper");
+      const notifWrap = document.querySelector(".notification-wrapper");
+
+      if (profileWrap && !profileWrap.contains(e.target) && profileDropdown) {
+        profileDropdown.classList.remove("show");
+        const arrow = profileMenu.querySelector(".dropdown-arrow");
+        if (arrow) arrow.style.transform = "rotate(0deg)";
+      }
+
+      if (notifWrap && !notifWrap.contains(e.target) && notificationDropdown) {
+        notificationDropdown.classList.remove("show");
+      }
+    });
+
+    console.log("✅ Navbar initialized");
   }, 100);
 }
 
@@ -130,9 +232,7 @@ function initializeNavbar() {
 function restoreUserPreferences() {
   setTimeout(() => {
     const sidebar = document.querySelector(".sidebar");
-    const collapsed = localStorage.getItem("sidebar-collapsed");
-    
-    if (collapsed === "1" && sidebar) {
+    if (localStorage.getItem("sidebar-collapsed") === "1") {
       sidebar.classList.add("collapsed");
       document.body.classList.add("sidebar-collapsed");
     }
@@ -142,16 +242,12 @@ function restoreUserPreferences() {
 // ===== LOGOUT FUNCTIONALITY =====
 function handleLogout(event) {
   event.preventDefault();
-  
+
   if (confirm("Are you sure you want to logout?")) {
     localStorage.clear();
     sessionStorage.clear();
-    
     showNotification("Logging out... Goodbye!", "success");
-    
-    setTimeout(() => {
-      window.location.href = "login.html";
-    }, 1500);
+    setTimeout(() => (window.location.href = "login.html"), 1500);
   }
 }
 
